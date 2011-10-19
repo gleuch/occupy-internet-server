@@ -84,7 +84,8 @@ end
 # Avatar selector
 get "/" do
   respond_to do |format|
-    format.html { haml :frontpage }
+    # format.html { haml :frontpage }
+    format.html { redirect("http://occupyinter.net") }
   end
 end
 
