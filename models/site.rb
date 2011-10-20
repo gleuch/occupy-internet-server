@@ -43,7 +43,7 @@ class Site
     users = self.visits.map(&:user)
 
     # Expand avatars to full paths, FIXME h8 basepath
-    users.each{|u| u.avatar = User.fix_avatar(u.avatar, basepath) }
+    users.each{|u| u.avatar = User.fix_avatar(u.avatar, basepath) unless u.blank? }
 
     # Strip bad elements... TODO where are these being made?!
     users.reject!{|u| u.uuid.nil? }
