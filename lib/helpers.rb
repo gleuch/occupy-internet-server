@@ -19,7 +19,8 @@ helpers do
   end
 
   def request_uuid
-    request.cookies['uuid']
+    # FIREFOX EXTENSION DOES NOT STORE COOKIES, MUST PASS UUID FOR IT TO COUNT NORMALLY, OTHERWISE EVERY PAGE LOAD INCREASES THE COUNTER! -gleuch
+    params[:uuid] || request.cookies['uuid']
   end
 
   def request_avatar
