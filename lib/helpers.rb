@@ -13,14 +13,17 @@ helpers do
     # TODO need to ensure setting HttpOnly
     # FIXME with headers not working?
     # domain = request.host
-    # expires = Time.now + (60 * 60 * 24 * 30 * 365 * 50) # 50 years
+    expires = Time.now + (60 * 60 * 24 * 365 * 50) # 50 years
     # response.set_cookie(key, {:value => value.to_s, :path => '/', :domain => domain, :expires => expires}.merge(opts))
-    response.set_cookie(key, value)
+    response.set_cookie(key, {:value => value, :expires => expires})
   end
 
   def request_uuid
     # FIREFOX EXTENSION DOES NOT STORE COOKIES, MUST PASS UUID FOR IT TO COUNT NORMALLY, OTHERWISE EVERY PAGE LOAD INCREASES THE COUNTER! -gleuch
-    params[:uuid] || request.cookies['uuid']
+    uuid = params[:uuid] unless params[:uuid].blank?
+    uuid ||= request.cookies['uuid']
+    uuid ||= generate_uuid
+    return uuid
   end
 
   def request_avatar
